@@ -1,0 +1,127 @@
+.search-container {
+    max-width: 100%;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.directory-title {
+    color: #02350D;
+    margin-bottom: 15px;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.search-box {
+    background-color: white;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    margin-bottom: 15px;
+}
+
+.search-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.search-input {
+    flex: 1;
+    min-width: 200px;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.institute-select {
+    flex: 2;
+    min-width: 300px;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: white;
+}
+
+.search-button {
+    padding: 8px 16px;
+    background-color: #02350D;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.search-button:hover {
+    background-color: #044b13;
+}
+
+.search-button, .clear-filters {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.clear-filters {
+    background-color: #7f8c8d;
+}
+
+
+.alphabet-filter {
+    margin-top: 20px;
+}
+
+.alphabet-filter ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    gap: 5px;
+}
+
+.alphabet-filter li {
+    display: inline-block;
+}
+
+.letter-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    color: #333;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.letter-link:hover {
+    background-color: #e0e0e0;
+}
+
+
+
+@media (max-width: 768px) {
+    .search-form {
+        flex-direction: column;
+    }
+    
+    .search-input, .institute-select {
+        width: 100%;
+    }
+    
+    .search-button {
+        width: 100%;
+    }
+}

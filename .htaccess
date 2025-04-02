@@ -1,0 +1,16 @@
+# Enable the rewrite engine
+RewriteEngine On
+
+# Base directory (if your app is in a subdirectory)
+RewriteBase /
+
+# Don't apply rules to existing files or directories
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Route all requests to your router script
+RewriteRule ^login\.php$ faculty-staff/app/Views/login.php [L]
+# Add more routes as needed
+RewriteRule ^admin/(.*)$ faculty-staff/app/Views/admin/$1 [L]
+# Catch-all rule (optional)
+# RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]

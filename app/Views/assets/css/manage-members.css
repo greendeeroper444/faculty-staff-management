@@ -1,0 +1,74 @@
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.open-modal {
+    background-color: #02350D;
+}
+
+.actions {
+    margin-bottom: 1rem;
+}
+
+.tabs {
+    display: flex;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #ddd;
+}
+
+.tab {
+    padding: 0.5rem 1rem;
+    margin-right: 0.5rem;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    border-radius: 0.25rem 0.25rem 0 0;
+    background-color: #f5f5f5;
+}
+
+.tab.active {
+    background-color: #02350D;
+    color: white;
+    border-color: #02350D;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.required {
+    color: red;
+}
+
+.form-group input[type="text"],
+.form-group input[type="url"],
+.form-group textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 0.25rem;
+}
+
+.form-actions {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.form-actions button:nth-child(1) {
+    background-color: #02350D !important;
+    color: white !important;
+}
+
+.form-actions button:nth-child(2) {
+    background-color: gray !important;
+    color: white !important;
+}
