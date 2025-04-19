@@ -7,7 +7,7 @@ redirect_if_not_logged_in();
 
 //get the requested page
 $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
-$validPages = ['dashboard', 'member-details', 'manage-members', 'search-members'];
+$validPages = ['dashboard', 'faculty-staff-list-details', 'faculty-staff-list', 'search-lists'];
 ?>
 
 <div class="admin-layout">

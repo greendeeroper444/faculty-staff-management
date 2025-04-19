@@ -18,7 +18,7 @@ function is_logged_in() {
 function redirect_if_not_logged_in() {
     if (!is_logged_in()) {
         display_alert("Please log in to access this page.", "warning");
-        header('Location: ' . BASE_URL . '/login.php');
+        header('Location: ' . BASE_URL . '/admin/login.php');
         exit();
     }
 }

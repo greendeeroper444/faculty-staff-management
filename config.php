@@ -4,15 +4,16 @@
 define('DEBUG', true);
 
 //site settings
-define('SITE_NAME', 'Faculty & Staff Directory');
-define('BASE_URL', 'http://localhost/facultystaff/app/Views');
+define('SITE_NAME', 'Faculty, Staff & Office Directory');
+define('BASE_URL', 'http://localhost/facultystaffdirectory');
 
 //paths
 define('ROOT_PATH', __DIR__);
 define('APP_PATH', __DIR__ . '/app');
+define('GLOBAL_PATH', __DIR__ . '/FACULTYSTAFFDIRECTORY');
 define('UPLOADS_PATH', __DIR__ . '/uploads');
 
-//default image for members without photos
+//default image for lists without photos
 define('DEFAULT_IMAGE', 'assets/images/default-user.png');
 
 //error handling

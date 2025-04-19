@@ -1,6 +1,6 @@
 <?php
     //fetch institutes from the controller
-    $institutes = $memberController->getInstitutes();
+    $institutes = $listController->getInstitutes();
 ?>
 
 <div class="search-container">

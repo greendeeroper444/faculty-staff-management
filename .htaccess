@@ -2,15 +2,24 @@
 RewriteEngine On
 
 # Base directory (if your app is in a subdirectory)
-RewriteBase /
+RewriteBase /facultystaffdirectory/
 
 # Don't apply rules to existing files or directories
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
-# Route all requests to your router script
-RewriteRule ^login\.php$ faculty-staff/app/Views/login.php [L]
-# Add more routes as needed
-RewriteRule ^admin/(.*)$ faculty-staff/app/Views/admin/$1 [L]
+# Exclude static assets from being routed
+RewriteCond %{REQUEST_URI} !\.(?:css|js|jpe?g|gif|png|ico|svg|webp)$ [NC]
+
+# Route all requests to the router script
+RewriteRule ^admin/login$ app/Views/admin/login.php [L]
+RewriteRule ^admin/(.*)$ app/Views/admin/$1 [L]
+RewriteRule ^user/(.*)$ app/Views/user/$1 [L]
+RewriteRule ^faculty$ app/Views/faculty.php [L]
+RewriteRule ^staff$ app/Views/staff.php [L]
+RewriteRule ^about$ app/Views/about.php [L]
+RewriteRule ^contact$ app/Views/contact.php [L]
+RewriteRule ^$ app/Views/index.php [L]
+
 # Catch-all rule (optional)
 # RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]

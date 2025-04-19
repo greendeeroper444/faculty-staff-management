@@ -46,7 +46,7 @@
         }
         
         //redirect to avoid resubmission
-        header('Location: ' . BASE_URL . '/admin/manage-members.php?type=' . $type);
+        header('Location: ' . BASE_URL . '/admin/faculty-staff-list.php?type=' . $type);
         exit();
     }
 
@@ -138,7 +138,7 @@
                 if ($listController->updateMember($member_id, $data, $type)) {
                     display_alert('Member updated successfully!', 'success');
                     //redirect to avoid resubmission
-                    header('Location: ' . BASE_URL . '/admin/manage-members.php?type=' . $type);
+                    header('Location: ' . BASE_URL . '/admin/faculty-staff-list.php?type=' . $type);
                     exit();
                 } else {
                     $errors[] = 'Error updating member: ' . $conn->error;
@@ -225,7 +225,7 @@
                 if ($stmt->execute()) {
                     display_alert('New ' . $type . ' member added successfully!', 'success');
                     //redirect to manage members page to avoid resubmission
-                    header('Location: ' . BASE_URL . '/admin/manage-members.php?type=' . $type);
+                    header('Location: ' . BASE_URL . '/admin/faculty-staff-list.php?type=' . $type);
                     exit();
                 } else {
                     $errors[] = 'Error adding member: ' . $conn->error;
@@ -276,7 +276,7 @@
                     <?php while ($row = $result->fetch_assoc()): ?>
                         <tr>
                             <td>
-                                <a href="<?php echo BASE_URL; ?>/admin/member-details.php?id=<?php echo $row['id']; ?>&type=<?php echo $type; ?>">
+                                <a href="<?php echo BASE_URL; ?>/admin/faculty-staff-list-details.php?id=<?php echo $row['id']; ?>&type=<?php echo $type; ?>">
                                     <?php if (!empty($row['photo_path']) && file_exists('../' . $row['photo_path'])): ?>
                                         <img src="<?php echo BASE_URL . '/' . $row['photo_path']; ?>" alt="<?php echo $row['name']; ?>" style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;">
                                     <?php else: ?>
@@ -288,7 +288,7 @@
                                
                             </td>
                             <td>
-                                <a href="<?php echo BASE_URL; ?>/admin/member-details.php?id=<?php echo $row['id']; ?>&type=<?php echo $type; ?>" class="member-name">
+                                <a href="<?php echo BASE_URL; ?>/admin/faculty-staff-list-details.php?id=<?php echo $row['id']; ?>&type=<?php echo $type; ?>" class="member-name">
                                     <?php echo $row['name']; ?>
                                 </a>
                             </td>
@@ -298,7 +298,7 @@
                             <td><?php echo $row['institute']; ?></td>
                             <td class="action-buttons">
                                 <button class="btn edit-member-btn" data-member='<?php echo json_encode($row); ?>'>Edit</button>
-                                <a href="<?php echo BASE_URL; ?>/admin/manage-members.php?action=delete&id=<?php echo $row['id']; ?>&type=<?php echo $type; ?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this member?')">Delete</a>
+                                <a href="<?php echo BASE_URL; ?>/admin/faculty-staff-list.php?action=delete&id=<?php echo $row['id']; ?>&type=<?php echo $type; ?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this member?')">Delete</a>
                             </td>
                         </tr>
                     <?php endwhile; ?>
@@ -319,7 +319,7 @@
 
 <!-- include modal styles -->
 <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/modal.css">
-<link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/manage-members.css">
+<link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/faculty-staff-list.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <!-- include modal scripts -->
 <script src="<?php echo BASE_URL; ?>/assets/js/modal.js"></script>

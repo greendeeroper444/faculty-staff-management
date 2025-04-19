@@ -1,7 +1,7 @@
 <?php
 
 class FileUtils {
-    public static function uploadPhoto($file, $existingPath = '', $baseDir = '../') {
+    public static function uploadPhoto($file, $existingPath = '', $baseDir = '../../../') {
         $result = [
             'path' => $existingPath,
             'errors' => []

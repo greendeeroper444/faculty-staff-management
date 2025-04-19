@@ -76,8 +76,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const urlParams = new URLSearchParams(window.location.search);
     const typeParam = urlParams.get('type');
     
-    //check if we're on a member-details page
-    if (currentUrl.includes('member-details.php') && typeParam) {
+    //check if we're on a faculty-staff-list-details page
+    if (currentUrl.includes('faculty-staff-list-details.php') && typeParam) {
         //find the corresponding sidebar link based on type
         menuItems.forEach(function(item) {
             const link = item.querySelector('a');
@@ -94,4 +94,25 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+});
+
+
+
+//alphabetical list
+document.addEventListener('DOMContentLoaded', function() {
+    //get all li elements in the admin sidebar
+    const menuItems = document.querySelectorAll('.alphabet-filter ul li');
+    
+    //add click event listener to each menu item
+    menuItems.forEach(function(item) {
+        item.addEventListener('click', function() {
+            //remove active class from all items
+            menuItems.forEach(function(item) {
+                item.classList.remove('active');
+            });
+            
+            //add active class to clicked item
+            this.classList.add('active');
+        });
+    });
 });

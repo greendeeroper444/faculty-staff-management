@@ -17,8 +17,8 @@ class AuthController {
         if ($result->num_rows === 1) {
             $admin = $result->fetch_assoc();
             
-            //compare plaintext passwords directly (as per original code)
-            if ($password === $admin['password']) {
+            //verify the hashed password
+            if (password_verify($password, $admin['password'])) {
                 return [
                     'success' => true,
                     'admin_id' => $admin['admin_id'],
@@ -32,15 +32,18 @@ class AuthController {
         ];
     }
 
+    //utility method to hash a password
+    public function hashPassword($password) {
+        return password_hash($password, PASSWORD_BCRYPT);
+    }
+
     //check if a user is currently logged in
     public function isLoggedIn() {
-        //implementation depends on your session management
         return isset($_SESSION['admin_id']) && !empty($_SESSION['admin_id']);
     }
 
-   ///og out the current user
+    // log out the current user
     public function logout() {
-        //implementation depends on your session management
         if (isset($_SESSION['admin_id'])) {
             unset($_SESSION['admin_id']);
             unset($_SESSION['username']);

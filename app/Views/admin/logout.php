@@ -15,6 +15,7 @@
     //logout user
     $authController->logout();
 
+    // display_alert('Logged Out successfully!', 'success');
     //redirect to login page
     header('Location: ' . BASE_URL . '/admin/login.php');
     exit();

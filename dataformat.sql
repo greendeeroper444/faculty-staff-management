@@ -16,8 +16,10 @@ CREATE TABLE admins (
 --create faculty_lists table
 CREATE TABLE faculty_lists (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
+    name VARCHAR(100),
     photo_path VARCHAR(255),
+    designation VARCHAR(100),
+    email VARCHAR(100),
     academic_rank VARCHAR(100),
     institute VARCHAR(150),
     education TEXT,
@@ -31,11 +33,23 @@ CREATE TABLE faculty_lists (
 --create staff_lists table
 CREATE TABLE staff_lists (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
+    name VARCHAR(100),
     photo_path VARCHAR(255),
     position VARCHAR(100),
     institute VARCHAR(150),
     education TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+--create office_lists table
+CREATE TABLE office_lists (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    office_name VARCHAR(100),
+    about TEXT,
+    head VARCHAR(100),
+    contact_number VARCHAR(20),
+    email VARCHAR(100),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
