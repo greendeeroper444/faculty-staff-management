@@ -66,7 +66,6 @@ function populateEditForm(listData) {
         photoContainer: document.getElementById('current_photo_container'),
         currentPhoto: document.getElementById('current_photo'),
         academicRank: document.getElementById('edit_academic_rank'),
-        designation: document.getElementById('edit_designation'),
         email: document.getElementById('edit_email'),
 
         //office directory
@@ -81,7 +80,6 @@ function populateEditForm(listData) {
     if (elements.name) elements.name.value = listData.name;
     if (elements.institute) elements.institute.value = listData.institute || '';
     if (elements.academicRank) elements.academicRank.value = listData.academic_rank || '';
-    if (elements.designation) elements.designation.value = listData.designation || '';
     if (elements.email) elements.email.value = listData.email || '';
 
     //office directory
@@ -128,7 +126,7 @@ function populateEditForm(listData) {
         }
         
         //populate education container
-        const educationContainer = document.getElementById('edit-education-container');
+        const educationContainer = document.getElementById('edit_education_container');
         if (educationContainer) {
             educationContainer.innerHTML = '';
             
@@ -166,8 +164,72 @@ function populateEditForm(listData) {
             }
         }
         
+
+        //         ---DESIGNATION----
+        //handle designation - parse designation
+        let designationList = [];
+        if (listData.designation) {
+            try {
+                if (typeof listData.designation === 'string') {
+                    if (listData.designation.startsWith('[') && listData.designation.endsWith(']')) {
+                        designationList = JSON.parse(listData.designation);
+                    } else {
+                        designationList = [listData.designation];
+                    } 
+                } else if (Array.isArray(listData.designation)) {
+                    designationList = listData.designation;
+                } else {
+                    designationList = [listData.designation];
+                } 
+            } catch (error) {
+                designationList = [listData.designation || '']
+            }
+        }
+
+        //populate designation container
+        const designationContainer = document.getElementById('edit_designation_container');
+        if (designationContainer) {
+            designationContainer.innerHTML = '';
+            
+            if (designationList.length > 0) {
+                //first field with add button
+                designationContainer.innerHTML = `
+                    <div class="research-title-input">
+                        <textarea name="designation[]" class="research-title" rows="2">${designationList[0]}</textarea>
+                        <button type="button" class="btn btn-sm btn-primary add-more mt-2">+ Add more designation</button>
+                    </div>
+                `;
+                
+                //additional fields
+                for (let i = 1; i < designationList.length; i++) {
+                    const field = document.createElement('div');
+                    field.className = 'research-title-input';
+                    field.innerHTML = `
+                        <div class="d-flex mt-2">
+                            <div class="flex-grow-1">
+                                <textarea name="designation[]" class="research-title" rows="2">${designationList[i]}</textarea>
+                            </div>
+                            <button type="button" class="btn btn-sm btn-danger remove-research-title ml-2">Remove</button>
+                        </div>
+                    `;
+                    designationContainer.appendChild(field);
+                }
+            } else {
+                //empty field
+                designationContainer.innerHTML = `
+                    <div class="research-title-input">
+                        <textarea name="designation[]" class="research-title" rows="2"></textarea>
+                        <button type="button" class="btn btn-sm btn-primary add-more mt-2">+ Add more research</button>
+                    </div>
+                `;
+            }
+        }
+
+
+
+
         //research titles and links
-        const container = document.getElementById('edit-research-titles-container');
+        const container = document.getElementById('edit_research_titles_container');
         if (container) {
             container.innerHTML = '';
             
@@ -257,6 +319,7 @@ function populateEditForm(listData) {
     //re-initialize all buttons after populating forms
     initResearchTitleButtons();
     initEducationButtons();
+    initDesignationButtons();
 }
 
 
@@ -299,22 +362,30 @@ function initResearchTitleButtons() {
             e.stopPropagation();
             
             //fix the selector - checking for both patterns
-            const container = btn.closest('.form-group')?.querySelector('[id$=-research-titles-container]') || 
-                btn.closest('.form-group')?.querySelector('[id$=research-titles-container]');
+            const container = btn.closest('.form-group')?.querySelector('[id$=-research_titles_container]') || 
+                btn.closest('.form-group')?.querySelector('[id$=research_titles_container]');
+
+            //check if this is an education button
+            const educationContainer = btn.closest('.form-group')?.querySelector('[id$=-education_container]') ||
+                btn.closest('.form-group')?.querySelector('[id$=education_container]');
+
+                //check if this is an education button
+            const designationContainer = btn.closest('.form-group')?.querySelector('[id$=-designation_container]') ||
+            btn.closest('.form-group')?.querySelector('[id$=designation_container]');
             
             if (container) {
                 addResearchField(container);
-            } else {
-                //check if this is an education button
-                const educationContainer = btn.closest('.form-group')?.querySelector('[id$=-education-container]') ||
-                    btn.closest('.form-group')?.querySelector('[id$=education-container]');
-                
+            } else if (educationContainer) {
                 if (educationContainer) {
                     //let the education button handler handle this
                     return;
                 }
-                
                 console.error("Container not found");
+            } else if (designationContainer) {
+                if (designationContainer) {
+                    //let the designation button hanlder handle this
+                    return;
+                }
             }
         });
     });
@@ -335,6 +406,7 @@ function initResearchTitleButtons() {
     });
 }
 
+// ____EDUCATION BUTTONS____
 function initEducationButtons() {
     //remove any existing education-specific event listeners
     //(Note: we've already reset .add-more buttons in the research function)
@@ -374,8 +446,8 @@ function initEducationButtons() {
     
     //add education button handlers
     document.querySelectorAll('.form-group').forEach(group => {
-        const educationContainer = group.querySelector('[id$=-education-container]') || 
-        group.querySelector('[id$=education-container]');
+        const educationContainer = group.querySelector('[id$=-education_container]') || 
+        group.querySelector('[id$=education_container]');
         
         if (educationContainer) {
             const addButton = group.querySelector('.add-more');
@@ -404,11 +476,83 @@ function initEducationButtons() {
 }
 
 
+// ____DESIGNATION BUTTONS____
+
+function initDesignationButtons() {
+    //remove any existing designation-specific event listeners
+    //(Note: we've already reset .add-more buttons in the research function)
+    document.querySelectorAll('.remove-designation').forEach(btn => {
+        //clone the button to remove all event listeners
+        const newBtn = btn.cloneNode(true);
+        btn.parentNode.replaceChild(newBtn, btn);
+    });
+    
+    //add designation field
+    function addDesignationField(container) {
+        if (!container) {
+            console.error("Designation container element not found");
+            return;
+        }
+        
+        const field = document.createElement('div');
+        field.className = 'research-title-input';
+        field.innerHTML = `
+            <div class="d-flex mt-2">
+                <div class="flex-grow-1">
+                    <label>Designation</label>
+                    <textarea name="designation[]" class="research-title" rows="2" placeholder="Designation background and qualifications"></textarea>
+                </div>
+                <button type="button" class="btn btn-sm btn-danger remove-designation ml-2">Remove</button>
+            </div>
+        `;
+        container.appendChild(field);
+        
+        //add event listener to the new remove button
+        field.querySelector('.remove-designation').addEventListener('click', function() {
+            if (field && field.parentNode) {
+                field.parentNode.removeChild(field);
+            }
+        });
+    }
+    
+    //add designation button handlers
+    document.querySelectorAll('.form-group').forEach(group => {
+        const designationContainer = group.querySelector('[id$=-designation_container]') || 
+        group.querySelector('[id$=designation_container]');
+        
+        if (designationContainer) {
+            const addButton = group.querySelector('.add-more');
+            if (addButton) {
+                //we already replaced this button in initResearchTitleButtons
+                //just make sure it has a specific designation handler
+                addButton.addEventListener('click', function(e) {
+                    //only handle if this is specifically an designation button
+                    if (designationContainer) {
+                        addDesignationField(designationContainer);
+                    }
+                });
+            }
+        }
+    });
+    
+    //re-attach event listeners for existing remove designation buttons
+    document.querySelectorAll('.remove-designation').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const designationInput = this.closest('.research-title-input');
+            if (designationInput && designationInput.parentNode) {
+                designationInput.parentNode.removeChild(designationInput);
+            }
+        });
+    });
+}
+
+
+// _____ALL FORM BUTTONS_____
 function initAllFormButtons() {
     //set a flag to track if initialization has been run
     if (window._buttonsInitialized) {
         //first, reset by cloning all buttons to remove existing listeners
-        document.querySelectorAll('.add-more, .remove-research-title, .remove-education').forEach(btn => {
+        document.querySelectorAll('.add-more, .remove-research-title, .remove-education, .remove-designation').forEach(btn => {
             const newBtn = btn.cloneNode(true);
             if (btn.parentNode) {
                 btn.parentNode.replaceChild(newBtn, btn);
@@ -419,6 +563,7 @@ function initAllFormButtons() {
     //initialize buttons
     initResearchTitleButtons();
     initEducationButtons();
+    initDesignationButtons();
     
     //set the flag
     window._buttonsInitialized = true;
@@ -456,6 +601,7 @@ function initPhotoPreview() {
 document.addEventListener('DOMContentLoaded', function() {
     initResearchTitleButtons();
     initEducationButtons();
+    initDesignationButtons();
 
     initPhotoPreview();
 });

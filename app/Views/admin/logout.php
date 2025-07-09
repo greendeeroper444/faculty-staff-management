@@ -7,7 +7,7 @@
 
     require_once '../../../config.php';
     require_once '../../../includes/db-connect.php';
-    require_once '../../../app/Controllers/AuthController.php';
+    require_once '../../../app/Controllers/authController.php';
 
     //create AuthController instance
     $authController = new AuthController($conn);

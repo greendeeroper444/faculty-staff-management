@@ -12,7 +12,7 @@
     require_once ROOT_PATH . '/includes/db-connect.php';
     require_once ROOT_PATH . '/includes/functions.php';
     require_once ROOT_PATH . '/includes/header.php';
-    require_once ROOT_PATH . '/app/Controllers/AuthController.php';
+    require_once ROOT_PATH . '/app/Controllers/authController.php';
     
 
     //create controller instance

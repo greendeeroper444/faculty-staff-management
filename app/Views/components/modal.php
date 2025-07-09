@@ -31,15 +31,25 @@
                         <small>Maximum file size: 2MB. Allowed formats: JPG, JPEG, PNG, GIF</small>
                     </div>
 
+            
                     <div style="background-color: #d8f0e2; padding: 8px 10px; margin-bottom: 10px; border-radius: 3px; font-weight: bold; color: #333333;">
-                        Designation and Email
+                        Designation
                     </div>
                     <div class="form-group" style="margin-left: 20px;">
-                        <label for="designation">Designation <span class="required"></span></label>
-                        <input type="text" id="designation" name="designation" required placeholder="Enter designation">
+                        <label for="designation">Designation</label>
+                        <div id="designation_container">
+                            <div class="research-title-input">
+                                <textarea name="designation[]" class="research-title" rows="2" required placeholder="Enter designation"></textarea>
+                                <button type="button" class="btn btn-sm btn-primary add-more mt-2">+ Add more designation</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background-color: #d8f0e2; padding: 8px 10px; margin-bottom: 10px; border-radius: 3px; font-weight: bold; color: #333333;">
+                        Email Address
                     </div>
                     <div class="form-group" style="margin-left: 20px;">
-                        <label for="email">Email <span class="required"></span></label>
+                        <label for="email">Email Address <span class="required"></span></label>
                         <input type="text" id="email" name="email" required placeholder="rodrigoroaduterte@gmail.com">
                     </div>
 
@@ -82,17 +92,31 @@
                         <?php endif; ?>
                     </div>
                     
-                    <div class="form-group" style="margin-left: 20px;">
-                        <label for="institute">Institute</label>
-                        <select id="institute" name="institute">
-                            <option value="">-- Select Institute --</option>
-                            <option value="Institute of Aquatic and Applied Sciences">Institute of Aquatic and Applied Sciences</option>
-                            <option value="Institute of Computing">Institute of Computing</option>
-                            <option value="Institute of Leadership, Entrepreneurship and Good Governance">Institute of Leadership, Entrepreneurship and Good Governance</option>
-                            <option value="Institute of Teacher Education">Institute of Teacher Education</option>
-                            <option value="Institute of Advanced Studies">Institute of Advanced Studies</option>
-                        </select>
-                    </div>
+                    <?php if ($type == 'faculty'): ?>
+                        <div class="form-group" style="margin-left: 20px;">
+                            <label for="institute">Institute</label>
+                            <select id="institute" name="institute">
+                                <option value="">-- Select Institute --</option>
+                                <option value="Institute of Aquatic and Applied Sciences">Institute of Aquatic and Applied Sciences</option>
+                                <option value="Institute of Computing">Institute of Computing</option>
+                                <option value="Institute of Leadership, Entrepreneurship and Good Governance">Institute of Leadership, Entrepreneurship and Good Governance</option>
+                                <option value="Institute of Teacher Education">Institute of Teacher Education</option>
+                                <option value="Institute of Advanced Studies">Institute of Advanced Studies</option>
+                            </select>
+                        </div>
+                    <?php else: ?>
+                        <div class="form-group" style="margin-left: 20px;">
+                            <label for="institute">Office</label>
+                            <select id="institute" name="institute">
+                                <option value="">-- Select Office --</option>
+                                <option value="Institute of Aquatic and Applied Sciences">Institute of Aquatic and Applied Sciences</option>
+                                <option value="Institute of Computing">Institute of Computing</option>
+                                <option value="Institute of Leadership, Entrepreneurship and Good Governance">Institute of Leadership, Entrepreneurship and Good Governance</option>
+                                <option value="Institute of Teacher Education">Institute of Teacher Education</option>
+                                <option value="Institute of Advanced Studies">Institute of Advanced Studies</option>
+                            </select>
+                        </div>
+                    <?php endif; ?>
 
                     
                     <div style="background-color: #d8f0e2; padding: 8px 10px; margin-bottom: 10px; border-radius: 3px; font-weight: bold; color: #333333;">
@@ -100,7 +124,7 @@
                     </div>
                     <div class="form-group" style="margin-left: 20px;">
                         <label for="education">Education</label>
-                        <div id="education-container">
+                        <div id="education_container">
                             <div class="research-title-input">
                                 <textarea name="education[]" class="research-title" rows="2" placeholder="Education background and qualifications"></textarea>
                                 <button type="button" class="btn btn-sm btn-primary add-more mt-2">+ Add more education</button>
@@ -109,15 +133,15 @@
                     </div>
                     
                     <div style="background-color: #d8f0e2; padding: 8px 10px; margin-bottom: 10px; border-radius: 3px; font-weight: bold; color: #333333;">
-                        Researchs and Links
+                        Research
                     </div>
                     <div class="form-group" style="margin-left: 20px;">
-                        <div id="research-titles-container">
+                        <div id="research_titles_container">
                             <div class="research-title-input">
                                 <label for="researc_title">Research Title</label>
                                 <textarea name="research_title[]" class="research-title" rows="2" placeholder="Enter research title"></textarea>
                                 <label for="researc_link">Research Link</label>
-                                <input type="url" name="research_link[]" class="research-link mt-2" placeholder="https://research-profile.example.com">
+                                <input type="url" name="research_link[]" class="research-link" placeholder="https://research-profile.example.com">
                                 <button type="button" class="btn btn-sm btn-primary add-more mt-2">+ Add more research</button>
                             </div>
                         </div>
@@ -136,7 +160,7 @@
                         Office Name
                     </div>
                     <div class="form-group" style="margin-left: 20px;">
-                        <label for="office_name">Name <span class="required"></span></label>
+                        <label for="office_name">Office Name <span class="required"></span></label>
                         <input type="text" id="office_name" name="office_name" required placeholder="Enter office name">
                     </div>
                     <div style="background-color: #d8f0e2; padding: 8px 10px; margin-bottom: 10px; border-radius: 3px; font-weight: bold; color: #333333;">
@@ -146,22 +170,21 @@
                         <label for="about">About <span class="required"></span></label>
                         <textarea id="about" name="about" rows="4" required placeholder="Enter about"></textarea>
                     </div>
+
                     <div style="background-color: #d8f0e2; padding: 8px 10px; margin-bottom: 10px; border-radius: 3px; font-weight: bold; color: #333333;">
-                        Head
+                        Office Head
                     </div>
                     <div class="form-group" style="margin-left: 20px;">
-                        <label for="head">Head <span class="required"></span></label>
-                        <input type="text" id="head" name="head" required placeholder="Enter head">
+                        <label for="head"> Office Head <span class="required"></span></label>
+                        <input type="text" id="head" name="head" required placeholder="Enter office head">
                     </div>
+
                     <div style="background-color: #d8f0e2; padding: 8px 10px; margin-bottom: 10px; border-radius: 3px; font-weight: bold; color: #333333;">
-                        Contact Number
+                        Contact Details
                     </div>
                     <div class="form-group" style="margin-left: 20px;">
                         <label for="contact_number">Contact Number <span class="required"></span></label>
                         <input type="number" id="contact_number" name="contact_number" required placeholder="Enter contact number">
-                    </div>
-                    <div style="background-color: #d8f0e2; padding: 8px 10px; margin-bottom: 10px; border-radius: 3px; font-weight: bold; color: #333333;">
-                        Email Address
                     </div>
                     <div class="form-group" style="margin-left: 20px;">
                         <label for="email">Email Address <span class="required"></span></label>
@@ -213,15 +236,25 @@
                         <input type="hidden" id="existing_photo_path" name="existing_photo_path" value="">
                     </div>
 
+                    
                     <div style="background-color: #d8f0e2; padding: 8px 10px; margin-bottom: 10px; border-radius: 3px; font-weight: bold; color: #333333;">
-                        Designation and Email
+                        Designation
                     </div>
                     <div class="form-group" style="margin-left: 20px;">
-                        <label for="edit_designation">Designation <span class="required"></span></label>
-                        <input type="text" id="edit_designation" name="designation" required placeholder="Enter designation">
+                        <label for="edit_designation">Designation</label>
+                        <div id="edit_designation_container">
+                            <div class="research-title-input">
+                                <textarea name="designation[]" class="research-title" rows="2" required placeholder="Enter designation"></textarea>
+                                <button type="button" class="btn btn-sm btn-primary add-more mt-2">+ Add more designation</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background-color: #d8f0e2; padding: 8px 10px; margin-bottom: 10px; border-radius: 3px; font-weight: bold; color: #333333;">
+                        Email Address
                     </div>
                     <div class="form-group" style="margin-left: 20px;">
-                        <label for="edit_email">Email <span class="required"></span></label>
+                        <label for="edit_email">Email Address <span class="required"></span></label>
                         <input type="text" id="edit_email" name="email" required placeholder="rodrigoroaduterte@gmail.com">
                     </div>
 
@@ -263,10 +296,25 @@
                             <input type="text" id="edit_academic_rank" name="academic_rank">
                         <?php endif; ?>
                     </div>
-                    <div class="form-group" style="margin-left: 20px;">
-                        <label for="edit_institute">Institute</label>
+
+                    <!-- institute and office -->
+                    <?php if ($type == 'faculty'): ?>
+                        <div class="form-group" style="margin-left: 20px;">
+                            <label for="edit_institute">Institute</label>
+                            <select id="edit_institute" name="institute">
+                                <option value="">-- Select Institute --</option>
+                                <option value="Institute of Aquatic and Applied Sciences">Institute of Aquatic and Applied Sciences</option>
+                                <option value="Institute of Computing">Institute of Computing</option>
+                                <option value="Institute of Leadership, Entrepreneurship and Good Governance">Institute of Leadership, Entrepreneurship and Good Governance</option>
+                                <option value="Institute of Teacher Education">Institute of Teacher Education</option>
+                                <option value="Institute of Advanced Studies">Institute of Advanced Studies</option>
+                            </select>
+                        </div>
+                    <?php else: ?>
+                        <div class="form-group" style="margin-left: 20px;">
+                        <label for="edit_institute">Office</label>
                         <select id="edit_institute" name="institute">
-                            <option value="">-- Select Institute --</option>
+                            <option value="">-- Select Office --</option>
                             <option value="Institute of Aquatic and Applied Sciences">Institute of Aquatic and Applied Sciences</option>
                             <option value="Institute of Computing">Institute of Computing</option>
                             <option value="Institute of Leadership, Entrepreneurship and Good Governance">Institute of Leadership, Entrepreneurship and Good Governance</option>
@@ -274,14 +322,14 @@
                             <option value="Institute of Advanced Studies">Institute of Advanced Studies</option>
                         </select>
                     </div>
-
+                    <?php endif; ?>
 
                     <div style="background-color: #d8f0e2; padding: 8px 10px; margin-bottom: 10px; border-radius: 3px; font-weight: bold; color: #333333;">
                         Education
                     </div>
                     <div class="form-group" style="margin-left: 20px;">
                         <label for="edit_education">Education</label>
-                        <div id="edit-education-container">
+                        <div id="edit_education_container">
                             <div class="research-title-input">
                                 <textarea name="education[]" class="research-title" rows="2" placeholder="Education background and qualifications"></textarea>
                                 <button type="button" class="btn btn-sm btn-primary add-more mt-2">+ Add more education</button>
@@ -290,10 +338,10 @@
                     </div>
                     
                     <div style="background-color: #d8f0e2; padding: 8px 10px; margin-bottom: 10px; border-radius: 3px; font-weight: bold; color: #333333;">
-                        Researchs and Links
+                        Research
                     </div>
                     <div class="form-group" style="margin-left: 20px;">
-                        <div id="edit-research-titles-container">
+                        <div id="edit_research_titles_container">
                             <div class="research-title-input">
                                 <label for="researc_title">Research Title</label>
                                 <textarea name="research_title[]" class="research-title" rows="2" placeholder="Enter research title"></textarea>
@@ -327,21 +375,18 @@
                         <textarea id="edit_about" name="about" rows="4" required placeholder="Enter about"></textarea>
                     </div>
                     <div style="background-color: #d8f0e2; padding: 8px 10px; margin-bottom: 10px; border-radius: 3px; font-weight: bold; color: #333333;">
-                        Head
+                        Office Head
                     </div>
                     <div class="form-group" style="margin-left: 20px;">
-                        <label for="edit_head">Head</label>
-                        <input type="text" id="edit_head" name="head" required placeholder="Enter head">
+                        <label for="edit_head">Office Head</label>
+                        <input type="text" id="edit_head" name="head" required placeholder="Enter office head">
                     </div>
                     <div style="background-color: #d8f0e2; padding: 8px 10px; margin-bottom: 10px; border-radius: 3px; font-weight: bold; color: #333333;">
-                        Contact Number
+                        Contact Details
                     </div>
                     <div class="form-group" style="margin-left: 20px;">
                         <label for="edit_contact_number">Contact Number</label>
                         <input type="number" id="edit_contact_number" name="contact_number" required placeholder="Enter contact number">
-                    </div>
-                    <div style="background-color: #d8f0e2; padding: 8px 10px; margin-bottom: 10px; border-radius: 3px; font-weight: bold; color: #333333;">
-                        Email Address
                     </div>
                     <div class="form-group" style="margin-left: 20px;">
                         <label for="edit_email">Email Address</label>

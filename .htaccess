@@ -2,7 +2,7 @@
 RewriteEngine On
 
 # Base directory (if your app is in a subdirectory)
-RewriteBase /facultystaffdirectory/
+RewriteBase /facultystaffofficedirectory/
 
 # Don't apply rules to existing files or directories
 RewriteCond %{REQUEST_FILENAME} !-f

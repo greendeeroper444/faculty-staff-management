@@ -42,7 +42,7 @@ class AuthController {
         return isset($_SESSION['admin_id']) && !empty($_SESSION['admin_id']);
     }
 
-    // log out the current user
+    //log out the current user
     public function logout() {
         if (isset($_SESSION['admin_id'])) {
             unset($_SESSION['admin_id']);

@@ -1,6 +1,7 @@
 <?php
     //fetch institutes from the controller
-    $institutes = $listController->getInstitutes();
+    $type = $_GET['type'] ?? 'faculty';
+    $institutes = $listController->getInstitutes($type);
 ?>
 
 <div class="search-container">
@@ -9,19 +10,14 @@
             <input type="text" class="search-input" placeholder="Enter name">
             
             <select class="institute-select">
-                <option value="">All Institutes</option>
+                <?php if ($type === 'faculty'): ?>
+                    <option value="">All Institutes</option>
+                <?php else: ?>
+                    <option value="">All Offices</option>
+                <?php endif; ?>
                 <?php foreach ($institutes as $institute): ?>
                     <option value="<?php echo htmlspecialchars($institute); ?>"><?php echo htmlspecialchars($institute); ?></option>
                 <?php endforeach; ?>
-                
-                <?php if (empty($institutes)): ?>
-                    <!-- Fallback options if no institutes are found in database -->
-                    <option value="College of Arts and Social Sciences">College of Arts and Social Sciences</option>
-                    <option value="College of Engineering">College of Engineering</option>
-                    <option value="College of Business">College of Business</option>
-                    <option value="College of Science">College of Science</option>
-                    <option value="College of Education">College of Education</option>
-                <?php endif; ?>
             </select>
             
             <button class="search-button">Search</button>

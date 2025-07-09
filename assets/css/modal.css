@@ -200,6 +200,10 @@
     width: 100%;
     margin-bottom: 0.5rem;
 }
+.research-link {
+    width: 100%;
+    margin-bottom: 1rem;
+}
 
 .add-more {
     display: inline-block;

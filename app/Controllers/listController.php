@@ -8,29 +8,34 @@ class ListController {
     }
 
    //get all institutes for dropdown options
-    public function getInstitutes() {
-        $faculty_table = $this->getTableName('faculty');
-        $staff_table = $this->getTableName('staff');
-        
-        //query to get unique institutes from both faculty and staff tables
-        $query = "SELECT DISTINCT institute FROM (
-            SELECT institute FROM $faculty_table 
-            UNION 
-            SELECT institute FROM $staff_table
-        ) AS combined_institutes 
-        WHERE institute != '' 
-        ORDER BY institute ASC";
-        
-        $result = $this->conn->query($query);
-        
-        $institutes = [];
-        if ($result) {
-            while ($row = $result->fetch_assoc()) {
-                $institutes[] = $row['institute'];
+    public function getInstitutes($type = 'faculty') {
+        if ($type === 'faculty' || $type === 'staff') {
+            $table = $this->getTableName($type);
+            $query = "SELECT DISTINCT institute FROM $table WHERE institute != '' ORDER BY institute ASC";
+            $result = $this->conn->query($query);
+
+            $institutes = [];
+            if ($result) {
+                while ($row = $result->fetch_assoc()) {
+                    $institutes[] = $row['institute'];
+                }
             }
+            return $institutes;
+        } elseif ($type === 'office') {
+            $office_table = $this->getTableName('office');
+            $query = "SELECT DISTINCT office_name FROM $office_table WHERE office_name != '' ORDER BY office_name ASC";
+            $result = $this->conn->query($query);
+
+            $offices = [];
+            if ($result) {
+                while ($row = $result->fetch_assoc()) {
+                    $offices[] = $row['office_name'];
+                }
+            }
+            return $offices;
+        } else {
+            return [];
         }
-        
-        return $institutes;
     }
     
 
@@ -160,6 +165,21 @@ class ListController {
         $table = $this->getTableName($type);
         
         //check if we need to handle photo deletion based on list type
+        // if ($type === 'faculty' || $type === 'staff') {
+        //     //get the photo path before deleting
+        //     $photo_query = "SELECT photo_path FROM $table WHERE id = ?";
+        //     $stmt = $this->conn->prepare($photo_query);
+        //     $stmt->bind_param("i", $id);
+        //     $stmt->execute();
+        //     $result = $stmt->get_result();
+            
+        //     if ($row = $result->fetch_assoc()) {
+        //         //delete the photo file if it exists
+        //         if (!empty($row['photo_path']) && file_exists('../' . $row['photo_path'])) {
+        //             unlink('../' . $row['photo_path']);
+        //         }
+        //     }
+        // }
         if ($type === 'faculty' || $type === 'staff') {
             //get the photo path before deleting
             $photo_query = "SELECT photo_path FROM $table WHERE id = ?";
@@ -170,8 +190,11 @@ class ListController {
             
             if ($row = $result->fetch_assoc()) {
                 //delete the photo file if it exists
-                if (!empty($row['photo_path']) && file_exists('../' . $row['photo_path'])) {
-                    unlink('../' . $row['photo_path']);
+                if (!empty($row['photo_path'])) {
+                    $fullPath = '../../../' . $row['photo_path'];
+                    if (file_exists($fullPath)) {
+                        unlink($fullPath);
+                    }
                 }
             }
         }
@@ -199,7 +222,8 @@ class ListController {
         //common fields initialization based on list type
         if ($type === 'faculty' || $type === 'staff') {
             $name = trim($postData['name'] ?? '');
-            $designation = trim($postData['designation'] ?? '');
+            $designation = isset($postData['designation']) ? $postData['designation'] : [];
+            $designation = json_encode(array_filter($designation));
             $email = trim($postData['email'] ?? '');
             $institute = trim($postData['institute'] ?? '');
             $education = isset($postData['education']) ? $postData['education'] : [];
@@ -334,7 +358,8 @@ class ListController {
         // common fields initialization
         if ($type === 'faculty' || $type === 'staff') {
             $name = trim($postData['name'] ?? '');
-            $designation = trim($postData['designation'] ?? '');
+            $designation = isset($postData['designation']) ? $postData['designation'] : [];
+            $designation = json_encode(array_filter($designation));
             $email = trim($postData['email'] ?? '');
             $institute = trim($postData['institute'] ?? '');
             $education = isset($postData['education']) ? $postData['education'] : [];

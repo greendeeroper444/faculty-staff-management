@@ -5,12 +5,12 @@ define('DEBUG', true);
 
 //site settings
 define('SITE_NAME', 'Faculty, Staff & Office Directory');
-define('BASE_URL', 'http://localhost/facultystaffdirectory');
+define('BASE_URL', 'http://localhost/facultystaffofficedirectory');
 
 //paths
 define('ROOT_PATH', __DIR__);
 define('APP_PATH', __DIR__ . '/app');
-define('GLOBAL_PATH', __DIR__ . '/FACULTYSTAFFDIRECTORY');
+define('GLOBAL_PATH', __DIR__ . '/FACULTYSTAFFOFFICEDIRECTORY');
 define('UPLOADS_PATH', __DIR__ . '/uploads');
 
 //default image for lists without photos

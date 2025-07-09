@@ -74,7 +74,7 @@
                     <?php if ($type === 'faculty'): ?>
                         <h4 class="section-header">Academic Rank and Insitute</h4>
                     <?php else: ?>
-                        <h4 class="section-header">Position and Insitute</h4>
+                        <h4 class="section-header">Position and Office</h4>
                     <?php endif; ?>
                     <div class="section-content">
                         <div class="info-row">
@@ -86,21 +86,56 @@
                             <div class="info-value"><?php echo $list['academic_rank'] ?? 'N/A'; ?></div>
                         </div>
                         <div class="info-row">
-                            <div class="info-label">Insitute</div>
+                            <?php if ($type === 'faculty'): ?>
+                                <div class="info-label">Insitute</div>
+                            <?php else: ?>
+                                <div class="info-label">Office</div>
+                            <?php endif; ?>
                             <div class="info-value"><?php echo $list['institute'] ?? 'N/A'; ?></div>
                         </div>
                     </div>
                 </div>
 
-                <div class="info-section">
-                    <h4 class="section-header">Designation and Email</h4>
+                <!-- designation -->
+                <!-- <div class="info-section">
+                    <h4 class="section-header">Designation</h4>
                     <div class="section-content">
                         <div class="info-row">
                             <div class="info-label">Designation</div>
                             <div class="info-value"><?php echo $list['designation'] ?? 'N/A'; ?></div>
                         </div>
+                    </div>
+                </div> -->
+                <!-- education section -->
+                <div class="info-section">
+                    <h4 class="section-header">Designation</h4>
+                    <div class="section-content">
                         <div class="info-row">
-                            <div class="info-label">Email</div>
+                            <div class="info-label">Designation<?php echo json_decode($list['designation']) && count(json_decode($list['research_title'])) > 1 ? 's' : ''; ?></div>
+                            <div class="info-value">
+                                <?php 
+                                $designation = json_decode($list['designation'], true);
+                                if (is_array($designation)) {
+                                    echo '<ul class="research-titles-list">';
+                                    foreach ($designation as $title) {
+                                        echo '<li>' . htmlspecialchars($title) . '</li>';
+                                    }
+                                    echo '</ul>';
+                                } else {
+                                    echo htmlspecialchars($list['designation']);
+                                }
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- email -->
+                <div class="info-section">
+                    <h4 class="section-header">Email Address</h4>
+                    <div class="section-content">
+                        <div class="info-row">
+                            <div class="info-label">Email Address</div>
                             <div class="info-value"><?php echo $list['email'] ?? 'N/A'; ?></div>
                         </div>
                     </div>
@@ -167,7 +202,7 @@
                     </div>
                 <?php endif; ?> -->
                 <div class="info-section">
-                    <h4 class="section-header">Research and Link</h4>
+                    <h4 class="section-header">Research</h4>
                     <div class="section-content">
                         <?php if (!empty($list['research_title'])): ?>
                         <div class="info-row">
@@ -247,26 +282,21 @@
                     </div>
                 </div>
                 <div class="info-section">
-                     <h4 class="section-header">Head</h4>
+                     <h4 class="section-header">Office Head</h4>
                     <div class="section-content">
                         <div class="info-row">
-                            <div class="info-label">Head</div>
+                            <div class="info-label">Office Head</div>
                             <div class="info-value"><?php echo $list['head'] ?? 'N/A'; ?></div>
                         </div>
                     </div>
                 </div>
                 <div class="info-section">
-                     <h4 class="section-header">Contact Number</h4>
+                     <h4 class="section-header">Contact Details</h4>
                     <div class="section-content">
                         <div class="info-row">
                             <div class="info-label">Contact Number</div>
                             <div class="info-value"><?php echo $list['contact_number'] ?? 'N/A'; ?></div>
                         </div>
-                    </div>
-                </div>
-                <div class="info-section">
-                     <h4 class="section-header">Email</h4>
-                    <div class="section-content">
                         <div class="info-row">
                             <div class="info-label">Email</div>
                             <div class="info-value"><?php echo $list['email'] ?? 'N/A'; ?></div>

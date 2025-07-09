@@ -127,6 +127,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const tableRows = document.querySelectorAll('.table tbody tr');
     const recordsFoundElement = document.querySelector('.actions span');
     
+
+    //detect type from URL (faculty, staff, office)
+    const urlParams = new URLSearchParams(window.location.search);
+    const type = urlParams.get('type') || 'faculty';
+
+
     //current filters
     let currentFilters = {
         name: '',
@@ -176,12 +182,24 @@ document.addEventListener('DOMContentLoaded', function() {
         let visibleRowsCount = 0;
         
         tableRows.forEach(row => {
-            const name = row.querySelector('.list-name').textContent.trim().toLowerCase();
-            const institute = row.cells[3] ? row.cells[3].textContent.trim().toLowerCase() : '';
+            let name, instituteOrOffice;
+            if (type === 'office') {
+                name = row.querySelector('.list-name') 
+                    ? row.querySelector('.list-name').textContent.trim().toLowerCase()
+                    : row.cells[0].textContent.trim().toLowerCase(); // fallback
+                //office_name is in the first column
+                instituteOrOffice = row.cells[0].textContent.trim().toLowerCase();
+            } else {
+                name = row.querySelector('.list-name')
+                    ? row.querySelector('.list-name').textContent.trim().toLowerCase()
+                    : row.cells[2].textContent.trim().toLowerCase(); // fallback
+                // institute is in the 4th column (index 3)
+                instituteOrOffice = row.cells[3] ? row.cells[3].textContent.trim().toLowerCase() : '';
+            }
             
             //check if row passes all active filters
             const passesNameFilter = currentFilters.name === '' || name.includes(currentFilters.name);
-            const passesInstituteFilter = currentFilters.institute === '' || institute.includes(currentFilters.institute);
+            const passesInstituteFilter = currentFilters.institute === '' || instituteOrOffice.includes(currentFilters.institute);
             const passesLetterFilter = currentFilters.letter === '' || name.charAt(0).toLowerCase() === currentFilters.letter;
             
             //show/hide row based on filter results

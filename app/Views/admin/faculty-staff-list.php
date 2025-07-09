@@ -47,15 +47,16 @@
                                 <th>Name</th>
                                 <?php if ($type === 'faculty'): ?>
                                     <th>Academic Rank</th>
+                                    <th>Institute</th>
                                 <?php else: ?>
                                     <th>Position</th>
+                                    <th>Office</th>
                                 <?php endif; ?>
-                                <th>Institute</th>
                                 <th>Actions</th>
                             <?php else: ?>
                                 <th>Office Name</th>
-                                <th>Head</th>
-                                <th>Email</th>
+                                <th>Office Head</th>
+                                <th>Email Address</th>
                                 <th>Actions</th>
                             <?php endif; ?>
                         </tr>
